@@ -6,17 +6,21 @@
 #    By: ibouhiri <ibouhiri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/17 15:16:28 by ibouhiri          #+#    #+#              #
-#    Updated: 2021/06/17 16:13:45 by ibouhiri         ###   ########.fr        #
+#    Updated: 2021/06/22 16:05:36 by ibouhiri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC = philo.c
+SRC =	philosophers.c \
+		tools.c \
+		forks.c
+
 CC = gcc -Wall -Wextra -Werror
+
 PROG = philo
 
 all: $(PROG)
 
-RUN :
+$(PROG) : $(SRC)
 	$(CC) $(SRC) -o $(PROG)
 
 clean:
