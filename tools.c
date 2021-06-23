@@ -6,7 +6,7 @@
 /*   By: ibouhiri <ibouhiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 16:34:24 by ibouhiri          #+#    #+#             */
-/*   Updated: 2021/06/22 15:51:03 by ibouhiri         ###   ########.fr       */
+/*   Updated: 2021/06/23 12:40:26 by ibouhiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,21 +48,40 @@ void	start(void)
 
 	count = 0;
 	id = malloc(sizeof(int) * t_d.numberofphilos);
+	// while (count < t_d.numberofphilos)
+	// {
+	// 	id[count] = count;
+	// 	if (count % 2 != 0)
+	// 		pthread_create(&t_d.philos[count].thread, NULL, &routine, &id[count]);
+	// 	else
+	// 		pthread_create(&t_d.philos[count].thread, NULL, &routine, &id[count]);
+	// 	count++;
+	// }
+	// ////////
+	count = 0;
 	while (count < t_d.numberofphilos)
 	{
 		id[count] = count;
 		if (count % 2 != 0)
 			pthread_create(&t_d.philos[count].thread, NULL, &routine, &id[count]);
-		else
+		count++;
+	}
+	count = 0;
+	usleep(t_d.numberofphilos * 2);
+	while (count < t_d.numberofphilos)
+	{
+		if (count % 2 == 0)
 			pthread_create(&t_d.philos[count].thread, NULL, &routine, &id[count]);
 		count++;
 	}
+	// ///////
 	count = 0;
 	while (count < t_d.numberofphilos)
 	{
 		pthread_join(t_d.philos[count].thread, NULL);
 		count++;
 	}
+	free(id);
 }
 
 int 	getcurrenttime(void)
