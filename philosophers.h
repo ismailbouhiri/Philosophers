@@ -6,7 +6,7 @@
 /*   By: ibouhiri <ibouhiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 15:16:32 by ibouhiri          #+#    #+#             */
-/*   Updated: 2021/06/23 10:29:38 by ibouhiri         ###   ########.fr       */
+/*   Updated: 2021/06/24 11:20:38 by ibouhiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,16 @@ int				ft_atoi(const char *str);
 int				ft_check(int n);
 char			*ft_itoa(int n);
 int				ft_strlen(char *ptr);
+long 			g_time;
 ///////////////////////////////////////////
-
+void			ft_putnbr_fd(int n, int fd);
 int				coll_data(int arc, char **arv);
 void			start(void);
 int				getcurrenttime(void);
 int				horloge(int arg_time);
-void			pickup(int id);
-void			putdown(int id);
+void			eating(int id);
+void			sleeping(int id);
+void			thinking(int id);
 void			*routine(void *arg);
 
 #endif

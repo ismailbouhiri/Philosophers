@@ -6,7 +6,7 @@
 /*   By: ibouhiri <ibouhiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 15:16:30 by ibouhiri          #+#    #+#             */
-/*   Updated: 2021/06/23 12:37:28 by ibouhiri         ###   ########.fr       */
+/*   Updated: 2021/06/24 11:20:01 by ibouhiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,16 @@ void	*routine(void *arg)
 	int count;
 
 	count = *(int*)arg;
-	pickup(count);
-	horloge(t_d.timetoeat);
-	while (1)
-	{}
-	putdown(count);
+	eating(count);
+	sleeping(count);
+	thinking(count);
 	return (NULL);
 }
 
 int		main(int arc, char **arv)
 {
 	int		ret;
+	g_time = getcurrenttime();
 	if ((ret = coll_data(arc, arv)))
 	{
 		printf("Erreur!!\n");
