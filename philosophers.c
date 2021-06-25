@@ -6,7 +6,7 @@
 /*   By: ibouhiri <ibouhiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 15:16:30 by ibouhiri          #+#    #+#             */
-/*   Updated: 2021/06/25 10:50:10 by ibouhiri         ###   ########.fr       */
+/*   Updated: 2021/06/25 12:23:28 by ibouhiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	*routine(void *arg)
 	eating(data);
 	sleeping(data);
 	thinking(data);
+	free(data->index);
+	free((t_id*)data);
 	return (NULL);
 }
 

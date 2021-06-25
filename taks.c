@@ -6,7 +6,7 @@
 /*   By: ibouhiri <ibouhiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 08:57:54 by ibouhiri          #+#    #+#             */
-/*   Updated: 2021/06/25 10:57:14 by ibouhiri         ###   ########.fr       */
+/*   Updated: 2021/06/25 12:26:05 by ibouhiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	eating(t_id *data)
 {
 	// pickup
 	pthread_mutex_lock(&data->ph->forks[*(data->index)]);
-	myprint(data, " has taken a fork\n");
 	pthread_mutex_lock(&data->ph->forks[(*(data->index) + 1) % data->ph->numberofphilos]);
+	myprint(data, " has taken a fork\n");
 	myprint(data, " has taken a fork\n");
 	// horloge countdown
 	myprint(data, " is eating\n");
