@@ -6,13 +6,14 @@
 #    By: ibouhiri <ibouhiri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/06/17 15:16:28 by ibouhiri          #+#    #+#              #
-#    Updated: 2021/06/22 16:05:36 by ibouhiri         ###   ########.fr        #
+#    Updated: 2021/06/25 09:12:20 by ibouhiri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC =	philosophers.c \
 		tools.c \
-		forks.c
+		forks.c \
+		taks.c
 
 CC = gcc -Wall -Wextra -Werror
 

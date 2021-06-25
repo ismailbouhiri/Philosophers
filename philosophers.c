@@ -6,47 +6,47 @@
 /*   By: ibouhiri <ibouhiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 15:16:30 by ibouhiri          #+#    #+#             */
-/*   Updated: 2021/06/24 11:20:01 by ibouhiri         ###   ########.fr       */
+/*   Updated: 2021/06/25 10:50:10 by ibouhiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "philosophers.h"
 
-// #define LEFT (philo_num + 1 % totalphilos)
-// #define right philo_num
-
 void	*routine(void *arg)
 {
-	int count;
+	t_id	*data;
 
-	count = *(int*)arg;
-	eating(count);
-	sleeping(count);
-	thinking(count);
+	data = (t_id*)arg;
+	eating(data);
+	sleeping(data);
+	thinking(data);
 	return (NULL);
 }
 
 int		main(int arc, char **arv)
 {
 	int		ret;
-	g_time = getcurrenttime();
-	if ((ret = coll_data(arc, arv)))
+	t_data	philo;
+
+	philo.start_time = getcurrenttime();
+	if ((ret = coll_data(arc, arv, &philo)))
 	{
 		printf("Erreur!!\n");
 		return (1);
 	}
-	pthread_mutex_init(&print, NULL);
-	t_d.philos = malloc(sizeof(t_philo) * t_d.numberofphilos);
-	t_d.forks = malloc(sizeof(pthread_mutex_t) * t_d.numberofphilos);
+	pthread_mutex_init(&philo.print, NULL);
+	philo.threads = malloc(sizeof(pthread_t) * philo.numberofphilos);
+	philo.forks = malloc(sizeof(pthread_mutex_t) * philo.numberofphilos);
 	ret = -1;
-	while (++ret < t_d.numberofphilos)
-		pthread_mutex_init(&t_d.forks[ret], NULL);
-	start();
-	free((t_philo*)t_d.philos);
+	while (++ret < philo.numberofphilos)
+		pthread_mutex_init(&philo.forks[ret], NULL);
+	start(&philo);
+	free((pthread_t*)philo.threads);
 	ret = -1;
-	while (++ret < t_d.numberofphilos)
-		pthread_mutex_destroy(&t_d.forks[ret]);
-	pthread_mutex_destroy(&print);
-	free((pthread_mutex_t*)t_d.forks);
+	while (++ret < philo.numberofphilos)
+		pthread_mutex_destroy(&philo.forks[ret]);
+	pthread_mutex_destroy(&philo.print);
+	free((pthread_mutex_t*)philo.forks);
+	// while (1){};
 	return (0);
 }
