@@ -6,7 +6,7 @@
 /*   By: ibouhiri <ibouhiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 15:51:22 by ibouhiri          #+#    #+#             */
-/*   Updated: 2021/06/24 11:20:31 by ibouhiri         ###   ########.fr       */
+/*   Updated: 2021/06/24 17:01:52 by ibouhiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ char			*ft_itoa(int n)
 		str[i] = res % 10 + 48;
 	return ((char*)str);
 }
+
 void	ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
