@@ -6,7 +6,7 @@
 /*   By: ibouhiri <ibouhiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 15:16:32 by ibouhiri          #+#    #+#             */
-/*   Updated: 2021/06/25 11:10:29 by ibouhiri         ###   ########.fr       */
+/*   Updated: 2021/06/27 13:50:25 by ibouhiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@
 typedef struct s_data
 {
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	*is_eatinng;
 	pthread_t		*threads;
-	int				numberofphilos;
+	int				*last_time_eat;
+	int				nofph;
 	int				timetodie;
 	int				timetoeat;
 	int				timetosleep;
@@ -31,6 +33,7 @@ typedef struct s_data
 	int				arc;
 	pthread_mutex_t	print;
 	long			start_time;
+	int				is_dead;
 }					t_data;
 typedef struct s_index
 {
@@ -53,5 +56,10 @@ void			eating(t_id *data);
 void			sleeping(t_id *data);
 void			thinking(t_id *data);
 void			*routine(void *arg);
+void			ft_init(t_data *ph);
+void			ft_destroy(t_data *ph);
+int				ft_death(t_data *ph);
+void			myprint(t_id *data, char *string);
+void 			deadprint(t_data *data, int id);
 
 #endif

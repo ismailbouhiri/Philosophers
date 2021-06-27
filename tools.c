@@ -6,7 +6,7 @@
 /*   By: ibouhiri <ibouhiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 16:34:24 by ibouhiri          #+#    #+#             */
-/*   Updated: 2021/06/25 10:53:57 by ibouhiri         ###   ########.fr       */
+/*   Updated: 2021/06/27 14:50:50 by ibouhiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,28 @@ int		ft_atoi(const char *str)
 	return (res * sign);
 }
 
+int		ft_death(t_data *ph)
+{
+	int i;
+	
+	ph->is_dead = 0;
+	while (!ph->is_dead)
+	{
+		i = 0;
+		while (i < ph->nofph)
+		{
+			if (getcurrenttime() - ph->last_time_eat[i] > ph->timetodie)
+			{
+				ph->is_dead = 1;
+				deadprint(ph, i);
+				break;
+			}
+			i++;
+		}
+	}
+	return (1);
+}
+
 void	start(t_data *philo)
 {
 	int		count;
@@ -48,7 +70,8 @@ void	start(t_data *philo)
 	// void	*arg;
 	
 	count = 0;
-	while (count < philo->numberofphilos)
+	philo->start_time = getcurrenttime();
+	while (count < philo->nofph)
 	{
 		data = malloc(sizeof(t_id));
 		data->index = malloc(sizeof(int));
@@ -59,7 +82,7 @@ void	start(t_data *philo)
 	}
 	usleep(1000);
 	count = 1;
-	while (count < philo->numberofphilos)
+	while (count < philo->nofph)
 	{
 		data = malloc(sizeof(t_id));
 		data->index = malloc(sizeof(int));
@@ -68,12 +91,7 @@ void	start(t_data *philo)
 		pthread_create(&philo->threads[count], NULL, &routine, data);
 		count += 2;
 	}
-	count = 0;
-	while (count < philo->numberofphilos)
-	{
-		pthread_join(philo->threads[count], NULL);
-		count++;
-	}
+	ft_death(philo);
 }
 
 int 	getcurrenttime(void)
@@ -102,12 +120,12 @@ int		coll_data(int arc, char **arv, t_data *philo)
 	philo->arc = arc;
 	if (arc < 5 || arc > 6)
 		return (1);
-	philo->numberofphilos = atoi(arv[1]);
+	philo->nofph = atoi(arv[1]);
 	philo->timetodie = atoi(arv[2]);
 	philo->timetoeat = atoi(arv[3]);
 	philo->timetosleep = atoi(arv[4]);
 	philo->time_must_eat = (arc == 6) ? atoi(arv[5]) : 0;
-	if (philo->numberofphilos < 1 || philo->timetodie < 1
+	if (philo->nofph < 1 || philo->timetodie < 1
 	|| philo->timetoeat < 1 || philo->timetosleep < 1)
 		return (1);
 	if (arc == 6 && philo->time_must_eat < 1)
