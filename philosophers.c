@@ -6,7 +6,7 @@
 /*   By: ibouhiri <ibouhiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 15:16:30 by ibouhiri          #+#    #+#             */
-/*   Updated: 2021/06/27 14:54:19 by ibouhiri         ###   ########.fr       */
+/*   Updated: 2021/06/27 15:02:48 by ibouhiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,6 @@ void	ft_init(t_data *ph)
 	ph->forks = malloc(sizeof(pthread_mutex_t) * ph->nofph);
 	ret = -1;
 	while (++ret < ph->nofph)
-		pthread_mutex_init(&ph->is_eatinng[ret], NULL);
-	ret = -1;
-	while (++ret < ph->nofph)
 		pthread_mutex_init(&ph->forks[ret], NULL);
 }
 
@@ -35,9 +32,6 @@ void	ft_destroy(t_data *ph)
 	ret = -1;
 	while (++ret < ph->nofph)
 		pthread_mutex_destroy(&ph->forks[ret]);
-	ret = -1;
-	while (++ret < ph->nofph)
-		pthread_mutex_destroy(&ph->is_eatinng[ret]);
 	pthread_mutex_destroy(&ph->print);
 	// free 
 	free((pthread_t*)ph->threads);
@@ -50,9 +44,12 @@ void	*routine(void *arg)
 	t_id	*data;
 
 	data = (t_id*)arg;
-	eating(data);
-	sleeping(data);
-	thinking(data);
+	while (1)
+	{
+		eating(data);
+		sleeping(data);
+		thinking(data);
+	}
 	free(data->index);
 	free((t_id*)data);
 	return (NULL);

@@ -6,7 +6,7 @@
 /*   By: ibouhiri <ibouhiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 15:16:32 by ibouhiri          #+#    #+#             */
-/*   Updated: 2021/06/27 13:50:25 by ibouhiri         ###   ########.fr       */
+/*   Updated: 2021/06/27 15:02:23 by ibouhiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 typedef struct s_data
 {
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	*is_eatinng;
 	pthread_t		*threads;
 	int				*last_time_eat;
 	int				nofph;
