@@ -6,7 +6,7 @@
 /*   By: ibouhiri <ibouhiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 15:16:32 by ibouhiri          #+#    #+#             */
-/*   Updated: 2021/06/27 15:02:23 by ibouhiri         ###   ########.fr       */
+/*   Updated: 2021/06/27 16:22:45 by ibouhiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,15 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+# define ISEAT 1
+# define NOTEAT 0
 typedef struct s_data
 {
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	*dead;
 	pthread_t		*threads;
 	int				*last_time_eat;
+	int				*is_eatinng;
 	int				nofph;
 	int				timetodie;
 	int				timetoeat;
@@ -31,7 +35,7 @@ typedef struct s_data
 	int				time_must_eat;
 	int				arc;
 	pthread_mutex_t	print;
-	long			start_time;
+	int				start_time;
 	int				is_dead;
 }					t_data;
 typedef struct s_index
@@ -59,6 +63,6 @@ void			ft_init(t_data *ph);
 void			ft_destroy(t_data *ph);
 int				ft_death(t_data *ph);
 void			myprint(t_id *data, char *string);
-void 			deadprint(t_data *data, int id);
+void			deadprint(t_data *data, int id);
 
 #endif

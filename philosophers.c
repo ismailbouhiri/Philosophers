@@ -6,7 +6,7 @@
 /*   By: ibouhiri <ibouhiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 15:16:30 by ibouhiri          #+#    #+#             */
-/*   Updated: 2021/06/27 15:02:48 by ibouhiri         ###   ########.fr       */
+/*   Updated: 2021/06/27 16:19:49 by ibouhiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,17 @@ void	ft_init(t_data *ph)
 	pthread_mutex_init(&ph->print, NULL);
 	ph->threads = malloc(sizeof(pthread_t) * ph->nofph);
 	ph->last_time_eat = malloc(sizeof(int) * ph->nofph);
+	ph->is_eatinng = malloc(sizeof(int) * ph->nofph);
 	ph->forks = malloc(sizeof(pthread_mutex_t) * ph->nofph);
+	ph->dead = malloc(sizeof(pthread_mutex_t) * ph->nofph);
 	ret = -1;
 	while (++ret < ph->nofph)
+	{
 		pthread_mutex_init(&ph->forks[ret], NULL);
+		pthread_mutex_init(&ph->dead[ret], NULL);
+		ph->is_eatinng[ret] = NOTEAT;
+		ph->last_time_eat[ret] = getcurrenttime(); 
+	}
 }
 
 void	ft_destroy(t_data *ph)
@@ -31,12 +38,17 @@ void	ft_destroy(t_data *ph)
 
 	ret = -1;
 	while (++ret < ph->nofph)
+	{
 		pthread_mutex_destroy(&ph->forks[ret]);
+		pthread_mutex_destroy(&ph->dead[ret]);
+	}
 	pthread_mutex_destroy(&ph->print);
 	// free 
 	free((pthread_t*)ph->threads);
 	free((pthread_mutex_t*)ph->forks);
+	free((pthread_mutex_t*)ph->dead);
 	free((int*)ph->last_time_eat);
+	free((int*)ph->is_eatinng);
 }
 
 void	*routine(void *arg)

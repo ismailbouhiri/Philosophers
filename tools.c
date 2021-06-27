@@ -6,7 +6,7 @@
 /*   By: ibouhiri <ibouhiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 16:34:24 by ibouhiri          #+#    #+#             */
-/*   Updated: 2021/06/27 15:01:14 by ibouhiri         ###   ########.fr       */
+/*   Updated: 2021/06/27 16:25:00 by ibouhiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,22 @@ int		ft_death(t_data *ph)
 		i = 0;
 		while (i < ph->nofph)
 		{
-			if (getcurrenttime() - ph->last_time_eat[i] > ph->timetodie)
+			if (ph->is_eatinng[i] == ISEAT)
+			{
+				i++;
+				continue;
+			}
+			pthread_mutex_lock(&ph->dead[i]);
+		 	if (getcurrenttime() - ph->last_time_eat[i] > ph->timetodie)
 			{
 				ph->is_dead = 1;
 				deadprint(ph, i);
 				break;
 			}
+			pthread_mutex_unlock(&ph->dead[i]);
 			i++;
 		}
+		usleep(800);
 	}
 	return (1);
 }
@@ -80,7 +88,7 @@ void	start(t_data *philo)
 		pthread_create(&philo->threads[count], NULL, &routine, data);
 		count += 2;
 	}
-	usleep(1000);
+	usleep(philo->nofph * 100);
 	count = 1;
 	while (count < philo->nofph)
 	{
