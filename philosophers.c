@@ -6,7 +6,7 @@
 /*   By: ibouhiri <ibouhiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 15:16:30 by ibouhiri          #+#    #+#             */
-/*   Updated: 2021/07/01 16:13:47 by ibouhiri         ###   ########.fr       */
+/*   Updated: 2021/07/01 16:53:19 by ibouhiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	ft_destroy(t_data *ph)
 	int		ret;
 	t_id	*data;
 
+	usleep(20000);
 	ret = -1;
 	data = (t_id *)*(ph->pointer);
 	while (++ret < ph->nofph)

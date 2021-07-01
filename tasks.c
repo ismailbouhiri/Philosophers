@@ -6,7 +6,7 @@
 /*   By: ibouhiri <ibouhiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 08:57:54 by ibouhiri          #+#    #+#             */
-/*   Updated: 2021/07/01 16:20:06 by ibouhiri         ###   ########.fr       */
+/*   Updated: 2021/07/01 17:08:03 by ibouhiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	deadprint(t_data *data, int id)
 	ft_putnbr_fd(getcurrenttime() - data->start_time, 1);
 	write(1, " ", 1);
 	write(1, number, ft_strlen(number));
-	write(1, " is dead\n", ft_strlen(" is dead\n"));
+	write(1, " died\n", ft_strlen(" died\n"));
 	free(number);
 }
 
@@ -42,9 +42,9 @@ void	myprint(t_id *data, char *string)
 void	eating(t_id *data)
 {
 	pthread_mutex_lock(&data->ph->forks[*(data->index)]);
+	myprint(data, " has taken a fork\n");
 	pthread_mutex_lock(&data->ph->forks[(*(data->index) + 1)
 		% data->ph->nofph]);
-	myprint(data, " has taken a fork\n");
 	myprint(data, " has taken a fork\n");
 	pthread_mutex_lock(&data->ph->dead[*data->index]);
 	data->ph->is_eatinng[*(data->index)] = ISEAT;
