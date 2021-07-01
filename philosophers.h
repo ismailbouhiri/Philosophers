@@ -6,7 +6,7 @@
 /*   By: ibouhiri <ibouhiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 15:16:32 by ibouhiri          #+#    #+#             */
-/*   Updated: 2021/06/27 16:22:45 by ibouhiri         ###   ########.fr       */
+/*   Updated: 2021/07/01 14:35:53 by ibouhiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_data
 	pthread_mutex_t	print;
 	int				start_time;
 	int				is_dead;
+	void			**pointer;
 }					t_data;
 typedef struct s_index
 {

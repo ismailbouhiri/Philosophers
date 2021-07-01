@@ -6,7 +6,7 @@
 /*   By: ibouhiri <ibouhiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 16:34:24 by ibouhiri          #+#    #+#             */
-/*   Updated: 2021/06/27 16:25:00 by ibouhiri         ###   ########.fr       */
+/*   Updated: 2021/07/01 14:36:35 by ibouhiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,24 +79,25 @@ void	start(t_data *philo)
 	
 	count = 0;
 	philo->start_time = getcurrenttime();
+	data = malloc(sizeof(t_id) * philo->nofph);
+	philo->pointer = (void *)&data;
+	ft_init(philo);
 	while (count < philo->nofph)
 	{
-		data = malloc(sizeof(t_id));
-		data->index = malloc(sizeof(int));
-		*(data->index) = count;
-		data->ph = philo;
-		pthread_create(&philo->threads[count], NULL, &routine, data);
+		data[count].index = malloc(sizeof(int));
+		*(data[count].index) = count;
+		data[count].ph = philo;
+		pthread_create(&philo->threads[count], NULL, &routine, &data[count]);
 		count += 2;
 	}
 	usleep(philo->nofph * 100);
 	count = 1;
 	while (count < philo->nofph)
 	{
-		data = malloc(sizeof(t_id));
-		data->index = malloc(sizeof(int));
-		*(data->index) = count;
-		data->ph = philo;
-		pthread_create(&philo->threads[count], NULL, &routine, data);
+		data[count].index = malloc(sizeof(int));
+		*(data[count].index) = count;
+		data[count].ph = philo;
+		pthread_create(&philo->threads[count], NULL, &routine, &data[count]);
 		count += 2;
 	}
 	ft_death(philo);
@@ -123,16 +124,30 @@ int 	horloge(int arg_time)
 	return (1);
 }
 
+int		arg_check(char *ptr)
+{
+	int i;
+
+	i = 0;
+	while (ptr[i])
+	{
+		if (!(ptr[i] >= '0' && ptr[i] <= '9'))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 int		coll_data(int arc, char **arv, t_data *philo)
 {
-	philo->arc = arc;
 	if (arc < 5 || arc > 6)
 		return (1);
-	philo->nofph = atoi(arv[1]);
-	philo->timetodie = atoi(arv[2]);
-	philo->timetoeat = atoi(arv[3]);
-	philo->timetosleep = atoi(arv[4]);
-	philo->time_must_eat = (arc == 6) ? atoi(arv[5]) : 0;
+	philo->arc = arc;
+	philo->nofph = (arg_check(arv[1])) ? atoi(arv[1]) : -1;
+	philo->timetodie = (arg_check(arv[2])) ? atoi(arv[2]) : -1;
+	philo->timetoeat = (arg_check(arv[3])) ? atoi(arv[3]) : -1;
+	philo->timetosleep = (arg_check(arv[4])) ? atoi(arv[4]) : -1;
+	philo->time_must_eat = (arc == 6 && arg_check(arv[5])) ? atoi(arv[5]) : 0;
 	if (philo->nofph < 1 || philo->timetodie < 1
 	|| philo->timetoeat < 1 || philo->timetosleep < 1)
 		return (1);

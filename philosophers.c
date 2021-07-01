@@ -6,7 +6,7 @@
 /*   By: ibouhiri <ibouhiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 15:16:30 by ibouhiri          #+#    #+#             */
-/*   Updated: 2021/06/27 16:19:49 by ibouhiri         ###   ########.fr       */
+/*   Updated: 2021/07/01 15:19:14 by ibouhiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,12 @@ void	ft_init(t_data *ph)
 void	ft_destroy(t_data *ph)
 {
 	int ret;
+	t_id *data;
 
 	ret = -1;
+	data = (t_id *)*(ph->pointer);
 	while (++ret < ph->nofph)
-	{
-		pthread_mutex_destroy(&ph->forks[ret]);
-		pthread_mutex_destroy(&ph->dead[ret]);
-	}
-	pthread_mutex_destroy(&ph->print);
-	// free 
+		free((int*)data[ret].index);
 	free((pthread_t*)ph->threads);
 	free((pthread_mutex_t*)ph->forks);
 	free((pthread_mutex_t*)ph->dead);
@@ -62,8 +59,6 @@ void	*routine(void *arg)
 		sleeping(data);
 		thinking(data);
 	}
-	free(data->index);
-	free((t_id*)data);
 	return (NULL);
 }
 
@@ -77,7 +72,6 @@ int		main(int arc, char **arv)
 		printf("Erreur!!\n");
 		return (1);
 	}
-	ft_init(&philo);
 	start(&philo);
 	ft_destroy(&philo);
 	return (0);

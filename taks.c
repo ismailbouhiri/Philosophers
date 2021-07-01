@@ -6,7 +6,7 @@
 /*   By: ibouhiri <ibouhiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/25 08:57:54 by ibouhiri          #+#    #+#             */
-/*   Updated: 2021/06/27 16:18:51 by ibouhiri         ###   ########.fr       */
+/*   Updated: 2021/07/01 10:58:28 by ibouhiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void	eating(t_id *data)
 	myprint(data, " has taken a fork\n");
 	// horloge countdown
 	pthread_mutex_lock(&data->ph->dead[*data->index]);
-	data->ph->last_time_eat[*(data->index)] = getcurrenttime();
 	data->ph->is_eatinng[*(data->index)] = ISEAT;
 	myprint(data, " is eating\n");
+	data->ph->last_time_eat[*(data->index)] = getcurrenttime();
 	horloge(data->ph->timetoeat);
 	data->ph->is_eatinng[*(data->index)] = NOTEAT;
 	// putdown the forks
