@@ -6,7 +6,7 @@
 /*   By: ibouhiri <ibouhiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/17 15:16:32 by ibouhiri          #+#    #+#             */
-/*   Updated: 2021/07/01 14:35:53 by ibouhiri         ###   ########.fr       */
+/*   Updated: 2021/07/01 16:41:00 by ibouhiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_data
 	pthread_mutex_t	*dead;
 	pthread_t		*threads;
 	int				*last_time_eat;
+	int				*eating_time;
 	int				*is_eatinng;
 	int				nofph;
 	int				timetodie;
@@ -65,5 +66,8 @@ void			ft_destroy(t_data *ph);
 int				ft_death(t_data *ph);
 void			myprint(t_id *data, char *string);
 void			deadprint(t_data *data, int id);
+int				eatingtime(t_data *ph);
+int				ft_norminette(int *i, t_data *ph);
+void			create_threads(int count, t_data *philo, t_id *data);
 
 #endif

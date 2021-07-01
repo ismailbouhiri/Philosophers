@@ -6,15 +6,15 @@
 /*   By: ibouhiri <ibouhiri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 15:51:22 by ibouhiri          #+#    #+#             */
-/*   Updated: 2021/06/25 08:59:08 by ibouhiri         ###   ########.fr       */
+/*   Updated: 2021/07/01 15:35:38 by ibouhiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "philosophers.h"
+#include "philosophers.h"
 
-int ft_strlen(char *ptr)
+int	ft_strlen(char *ptr)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (ptr[i])
@@ -22,7 +22,7 @@ int ft_strlen(char *ptr)
 	return (i);
 }
 
-int		ft_check(int n)
+int	ft_check(int n)
 {
 	int				i;
 	unsigned int	res;
@@ -42,7 +42,7 @@ int		ft_check(int n)
 	return (i);
 }
 
-char			*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	int				i;
 	unsigned char	*str;
@@ -66,7 +66,7 @@ char			*ft_itoa(int n)
 	}
 	if (res < 10)
 		str[i] = res % 10 + 48;
-	return ((char*)str);
+	return ((char *)str);
 }
 
 void	ft_putchar_fd(char c, int fd)
@@ -74,9 +74,9 @@ void	ft_putchar_fd(char c, int fd)
 	write(fd, &c, 1);
 }
 
-void			ft_putnbr_fd(int n, int fd)
+void	ft_putnbr_fd(int n, int fd)
 {
-	long res;
+	long	res;
 
 	res = n;
 	if (n < 0)
